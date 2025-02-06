@@ -17,13 +17,27 @@ require("lazy").setup({
         "Mofiqul/adwaita.nvim",
         lazy = false,
         priority = 1000,
-        
         -- configure and set on startup
         config = function()
             vim.g.adwaita_darker = true             -- for darker version
-            vim.g.adwaita_disable_cursorline = true -- to disable cursorline
+            vim.g.adwaita_disable_cursorline = false -- to disable cursorline
             vim.g.adwaita_transparent = true        -- makes the background transparent
             vim.cmd('colorscheme adwaita')
+        end
+    },
+    {
+        "nvim-tree/nvim-tree.lua",
+        dependencies = {
+            "nvim-tree/nvim-web-devicons",
+        },
+    },
+    {
+        'nvim-lualine/lualine.nvim',
+        dependencies = { 'nvim-tree/nvim-web-devicons' },
+        config = function ()
+            require('lualine').setup {
+                options = { theme = adwaita },
+            }
         end
     },
     -- Vscode-like pictograms

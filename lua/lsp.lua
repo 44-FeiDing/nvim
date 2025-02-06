@@ -10,7 +10,7 @@ require('mason').setup({
 
 require('mason-lspconfig').setup({
     -- A list of servers to automatically install if they're not already installed
-    ensure_installed = { 'pylsp', 'lua_ls', 'clangd', 'mesonlsp', 'bashls' },
+    ensure_installed = { 'pylsp', 'lua_ls', 'clangd', 'mesonlsp', 'bashls', 'vimls' },
 })
 
 -- Set different settings for different languages' LSP
@@ -23,7 +23,7 @@ local lspconfig = require('lspconfig')
 -- Customized on_attach function
 -- See `:help vim.diagnostic.*` for documentation on any of the below functions
 local opts = { noremap = true, silent = true }
-vim.keymap.set('n', '<leader>e', vim.diagnostic.open_float, opts)
+vim.keymap.set('n', '<leader>f', vim.diagnostic.open_float, opts)
 vim.keymap.set('n', '[d', vim.diagnostic.goto_prev, opts)
 vim.keymap.set('n', ']d', vim.diagnostic.goto_next, opts)
 --vim.keymap.set('n', '<space>q', vim.diagnostic.setloclist, opts)
@@ -62,3 +62,9 @@ end
 lspconfig.pylsp.setup({
 	on_attach = on_attach,
 })
+
+require'lspconfig'.clangd.setup{}
+require'lspconfig'.lua_ls.setup{}
+require'lspconfig'.mesonlsp.setup{}
+require'lspconfig'.bashls.setup{}
+require'lspconfig'.vimls.setup{}

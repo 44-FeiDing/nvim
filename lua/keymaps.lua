@@ -24,6 +24,31 @@ vim.keymap.set('n', '<C-Down>', ':resize +2<CR>', opts)
 vim.keymap.set('n', '<C-Left>', ':vertical resize -2<CR>', opts)
 vim.keymap.set('n', '<C-Right>', ':vertical resize +2<CR>', opts)
 
+vim.keymap.set('n', '<leader>t', ':below term<CR>', opts)
+-- Start terminal mode when terminal buffer open.
+vim.api.nvim_create_autocmd("TermOpen", {
+  callback = function()
+    vim.cmd "startinsert!"
+  end,
+})
+-- disable line numbering in terminal mode
+local vim_term =    vim.api.nvim_create_augroup('vim_term', { clear = true })
+vim.api.nvim_create_autocmd('TermOpen', {
+  callback = function()
+    vim.opt_local.relativenumber = false
+    vim.opt_local.number = false
+  end,
+  group = vim_term
+})
+-- start insert mode when moving to a terminal window
+vim.api.nvim_create_autocmd({ 'BufWinEnter', 'WinEnter' }, {
+  callback = function()
+    if vim.bo.buftype == 'terminal' then vim.cmd('startinsert') end
+  end,
+  group = vim_term
+})
+
+
 -----------------
 -- Visual mode --
 -----------------
